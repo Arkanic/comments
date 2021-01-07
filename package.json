@@ -1,0 +1,29 @@
+{
+  "name": "comments",
+  "version": "1.0.0",
+  "description": "node.js comments section",
+  "main": "server.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "node server.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Arkanic/comments.git"
+  },
+  "author": "Arkanic",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/Arkanic/comments/issues"
+  },
+  "homepage": "https://github.com/Arkanic/comments#readme",
+  "dependencies": {
+    "body-parser": "^1.19.0",
+    "cors": "^2.8.5",
+    "express": "^4.17.1",
+    "lowdb": "^1.0.0",
+    "nanoid": "^3.1.20",
+    "sanitizer": "^0.1.3",
+    "socket.io": "^3.0.5"
+  }
+}
