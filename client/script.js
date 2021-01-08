@@ -1,5 +1,5 @@
-let PAGE = "test";
-let LINK = "https://8080-d3cf9c59-5ad8-4226-9e36-93d65409fca2.ws-us03.gitpod.io/"
+let PAGE = document.getElementById("comments-page").content;
+let LINK = document.getElementById("comments-link").content;
 
 let commentsbox = document.getElementById("commentsbox");
 let name = document.getElementById("name");
@@ -25,7 +25,6 @@ function comments(res) {
     commentsbox.innerHTML = "";
     let comments = res.content.sort((a, b) => b.created - a.created);
     for(let i in comments) {
-        console.log("h");
         renderComment(comments[i], commentsbox);
     };
 }
@@ -54,6 +53,10 @@ function getComments() {
     xhr.send(JSON.stringify({"page": PAGE}));
 }  
 getComments();
+
+setInterval(() => {
+    getComments();
+}, 1000*60*5);
 
 function error(msg) {
     console.log(msg);

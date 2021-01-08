@@ -22,7 +22,7 @@ app.listen(8080, () => {
 });
 
 app.post("/api/postcomment", (req, res) => {
-    if(!req.body.name || !req.body.content || !req.body.page) return res.status(400).json({success: false, message: "incomplete data"});
+    if(!req.body.name || !req.body.content || !req.body.page) return res.status(400).json({success: false, message: "invalid data"});
     if(!db.has(`comments.${sanitize(req.body.page)}`)) return res.status(400).json({
         success: false,
         message: "invalid comments page to post to"
