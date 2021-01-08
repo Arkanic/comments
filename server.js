@@ -13,7 +13,8 @@ const sanitize = require("sanitizer").sanitize;
 const app = express();
 app.use([
     require("cors")(), 
-    bodyParser.json()
+    bodyParser.json(),
+    express.static("client")
 ]);
 
 app.listen(8080, () => {
@@ -32,8 +33,7 @@ app.post("/api/postcomment", (req, res) => {
         id: id,
         name: sanitize(req.body.name),
         content: sanitize(req.body.content),
-        created: Date.now(),
-        parent: sanitize(req.body.parent) || "none"
+        created: Date.now()
     }).write();
     return res.status(200).json({
         success: true,
