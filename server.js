@@ -21,19 +21,33 @@ app.listen(8080, () => {
 });
 
 app.post("/api/postcomment", (req, res) => {
-    if(!req.body.name || !req.body.content) return res.status(400).json({success: false, message: "incomplete data"});
-    db.get("comments")
-    .push({id: nanoid(), name: sanitize(req.body.name), content: sanitize(req.body.content)})
-    .write();
+    if(!req.body.name || !req.body.content || !req.body.page) return res.status(400).json({success: false, message: "incomplete data"});
+    if(!db.has(`comments.${sanitize(req.body.page)}`)) return res.status(400).json({
+        success: false,
+        message: "invalid comments page to post to"
+    });
+    let id = nanoid();
+    db.get(`comments.${sanitize(req.body.page)}`)
+    .push({
+        id: id,
+        name: sanitize(req.body.name),
+        content: sanitize(req.body.content),
+        created: Date.now(),
+        parent: sanitize(req.body.parent) || "none"
+    }).write();
     return res.status(200).json({
         success: true,
         message: "comment posted successfully"
     });
 });
 
-app.get("/api/getcomments", (req, res) => {
+app.post("/api/getcomments", (req, res) => {
+    if(!db.has(`comments.${sanitize(req.body.page)}`)) return res.status(400).json({
+        success: false,
+        message: "invalid comments page to post to"
+    });
     return res.status(200).json({
         success: true,
-        comments: db.get("comments").__wrapped__
+        content: db.get(`comments.${sanitize(req.body.page)}`)
     });
 });
