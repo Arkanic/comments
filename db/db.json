@@ -1,24 +1,6 @@
 {
   "comments": {
     "test": [
-      {
-        "id": "BC87ihOc8mColqRl6Mei9",
-        "name": "Arkanic",
-        "content": "Testing testing testing 123 hi hi",
-        "created": 1610131876347
-      },
-      {
-          "id": "bobobob",
-          "name": "cinakrA",
-          "content": "umb",
-          "created": 1610131876347
-      },
-      {
-          "id": "yes",
-          "name": "gggg",
-          "content": "agreed",
-          "created": 1
-      }
     ]
   }
 }

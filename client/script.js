@@ -9,13 +9,24 @@ let submit = document.getElementById("submit");
 submit.addEventListener("click", (e) => {
     if(name.value == "") return error("name is empty");
     if(message.value == "") return error("message is empty");
+    let xhr = new XMLHttpRequest();
+    xhr.open("POST", LINK + "api/postcomment");
+    xhr.setRequestHeader("Content-Type", "application/json");
+    xhr.onreadystatechange = () => {
+        if(xhr.readyState != 4) return;
+        let res = JSON.parse(xhr.responseText);
+        if(!res.success) return error(res.message);
+        getComments();
+    }
+    xhr.send(JSON.stringify({"name": name.value, "page": PAGE, "content": message.value}));
 });
 
 function comments(res) {
     commentsbox.innerHTML = "";
-    for(let i in res.content) {
+    let comments = res.content.sort((a, b) => b.created - a.created);
+    for(let i in comments) {
         console.log("h");
-        renderComment(res.content[i], commentsbox);
+        renderComment(comments[i], commentsbox);
     };
 }
 function renderComment(c, e) {
